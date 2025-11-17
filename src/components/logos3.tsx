@@ -1,6 +1,7 @@
 "use client";
 
 import AutoScroll from "embla-carousel-auto-scroll";
+import Image from "next/image";
 
 import {
   Carousel,
@@ -16,15 +17,11 @@ interface Logo {
 }
 
 interface Logos3Props {
-  heading?: string;
   logos?: Logo[];
   className?: string;
 }
 
-const Logos3 = ({
-  heading = "Trusted by these companies",
-  logos = [],
-}: Logos3Props) => {
+const Logos3 = ({ logos = [] }: Logos3Props) => {
   return (
     <section className="py-3">
       <div className="container flex flex-col items-center text-center">
@@ -32,6 +29,7 @@ const Logos3 = ({
           <span className="text-amber-400">Trusted by</span> these companies
         </h1>
       </div>
+
       <div className="pt-10 md:pt-16 lg:pt-20">
         <div className="relative mx-auto flex items-center justify-center lg:max-w-5xl">
           <Carousel
@@ -45,20 +43,22 @@ const Logos3 = ({
                   className="flex basis-1/3 justify-center pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6"
                 >
                   <div className="mx-10 flex shrink-0 items-center justify-center">
-                    <div>
-                      <img
-                        src={logo.image}
-                        alt={logo.description}
-                        className={logo.className}
-                      />
-                    </div>
+                    <Image
+                      src={logo.image}
+                      alt={logo.description}
+                      width={130}
+                      height={80}
+                      className={logo.className}
+                    />
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
           </Carousel>
-          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-background to-transparent"></div>
-          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-background to-transparent"></div>
+
+          {/* Gradient sides */}
+          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-background to-transparent" />
+          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-background to-transparent" />
         </div>
       </div>
     </section>

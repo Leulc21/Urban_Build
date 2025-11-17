@@ -5,15 +5,11 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-// Animation variants
 const container = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
-    },
+    transition: { staggerChildren: 0.1, delayChildren: 0.3 },
   },
 };
 
@@ -22,10 +18,7 @@ const cardItem = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.1, 0.25, 1],
-    },
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
   },
 };
 
@@ -34,10 +27,7 @@ const fadeInUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.6, -0.05, 0.01, 0.99],
-    },
+    transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] },
   },
 };
 
@@ -45,24 +35,17 @@ const fadeIn = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut",
-    },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
 export default function Testimonials() {
   const controls = useAnimation();
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { amount: 0.2 }); // Trigger when 20% of section is visible
+  const isInView = useInView(ref, { amount: 0.2 });
 
   useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
-    }
+    controls.start(isInView ? "visible" : "hidden");
   }, [isInView, controls]);
 
   const cards = [
@@ -120,9 +103,6 @@ export default function Testimonials() {
           <h2 className="text-4xl font-medium lg:text-5xl">
             <motion.span
               className="text-amber-500"
-              initial={{ opacity: 0 }}
-              animate={controls}
-              custom={0}
               variants={{
                 hidden: { opacity: 0 },
                 visible: {
@@ -135,9 +115,6 @@ export default function Testimonials() {
             </motion.span>
             <motion.span
               className="text-shadow-dark"
-              initial={{ opacity: 0 }}
-              animate={controls}
-              custom={1}
               variants={{
                 hidden: { opacity: 0 },
                 visible: {
@@ -149,13 +126,8 @@ export default function Testimonials() {
               precision, trusted by professionals
             </motion.span>
           </h2>
-          <motion.p
-            variants={fadeIn}
-            custom={2}
-            initial="hidden"
-            animate={controls}
-            transition={{ delay: 0.8 }}
-          >
+
+          <motion.p variants={fadeIn} transition={{ delay: 0.8 }}>
             Our construction solutions have helped architects, engineers, and
             contractors deliver high-quality projects on time and on budget.
           </motion.p>
@@ -172,11 +144,8 @@ export default function Testimonials() {
               key={i}
               variants={cardItem}
               custom={i}
-              className={`${card.className}`}
-              whileHover={{
-                y: -5,
-                transition: { duration: 0.2 },
-              }}
+              className={card.className}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
               <Card className="grid grid-rows-[auto_1fr] h-full">
                 <CardHeader>
@@ -184,8 +153,6 @@ export default function Testimonials() {
                     className="h-6 w-fit"
                     src={card.logo}
                     alt={card.alt}
-                    initial={{ opacity: 0 }}
-                    animate={controls}
                     variants={{
                       hidden: { opacity: 0 },
                       visible: {
@@ -195,12 +162,11 @@ export default function Testimonials() {
                     }}
                   />
                 </CardHeader>
+
                 <CardContent className="h-full pt-6">
                   <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
                     <motion.p
                       className="text-xl font-medium"
-                      initial={{ opacity: 0 }}
-                      animate={controls}
                       variants={{
                         hidden: { opacity: 0 },
                         visible: {
@@ -209,12 +175,11 @@ export default function Testimonials() {
                         },
                       }}
                     >
-                      "{card.text}"
+                      {card.text}
                     </motion.p>
+
                     <motion.div
                       className="grid grid-cols-[auto_1fr] items-center gap-3"
-                      initial={{ opacity: 0 }}
-                      animate={controls}
                       variants={{
                         hidden: { opacity: 0 },
                         visible: {
@@ -227,6 +192,7 @@ export default function Testimonials() {
                         <AvatarImage src={card.avatar} alt={card.name} />
                         <AvatarFallback>{card.fallback}</AvatarFallback>
                       </Avatar>
+
                       <div>
                         <cite className="text-sm font-medium">{card.name}</cite>
                         <span className="text-muted-foreground block text-sm">

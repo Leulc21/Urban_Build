@@ -5,15 +5,20 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-scroll";
 
+type CursorPosition = {
+  left: number;
+  width: number;
+  opacity: number;
+};
+
 function NavHeader() {
   const [scrolled, setScrolled] = useState(false);
-  const [position, setPosition] = useState({
+  const [position, setPosition] = useState<CursorPosition>({
     left: 0,
     width: 0,
     opacity: 0,
   });
 
-  // Track scroll
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
@@ -29,7 +34,6 @@ function NavHeader() {
       }`}
     >
       <div className="relative w-full">
-        {/* Normal Nav when not scrolled */}
         {!scrolled && (
           <motion.div
             className="flex items-center justify-between px-6 py-3 bg-dark text-white"
@@ -37,7 +41,6 @@ function NavHeader() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Logo */}
             <motion.div
               className="flex items-center space-x-2"
               whileHover={{ scale: 1.05 }}
@@ -52,7 +55,6 @@ function NavHeader() {
               />
             </motion.div>
 
-            {/* Navigation */}
             <motion.ul
               className="flex space-x-6 text-sm md:text-base font-medium"
               initial={{ opacity: 0 }}
@@ -78,7 +80,6 @@ function NavHeader() {
           </motion.div>
         )}
 
-        {/* Floating Nav when scrolled */}
         {scrolled && (
           <motion.ul
             className="fixed top-2 left-1/2 -translate-x-1/2 flex w-fit rounded-full border border-black bg-white p-1 shadow-xl z-50"
@@ -122,6 +123,7 @@ function NavHeader() {
                 </motion.span>
               </Link>
             </Tab>
+
             <Cursor position={position} />
           </motion.ul>
         )}
@@ -152,7 +154,7 @@ const Tab = ({
   setPosition,
 }: {
   children: React.ReactNode;
-  setPosition: any;
+  setPosition: React.Dispatch<React.SetStateAction<CursorPosition>>;
 }) => {
   const ref = useRef<HTMLLIElement>(null);
   return (
@@ -175,7 +177,7 @@ const Tab = ({
   );
 };
 
-const Cursor = ({ position }: { position: any }) => {
+const Cursor = ({ position }: { position: CursorPosition }) => {
   return (
     <motion.li
       animate={position}
