@@ -27,13 +27,6 @@ Urban Build is a modern, responsive construction company website built with Next
 
 
 
-
-
-
-```
-
-```
-
 ## 🚀 Getting Started
 
 ### Prerequisites
