@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
 
 const fadeInUp = {
@@ -30,11 +31,6 @@ const staggerContainer = {
       delayChildren: 0.3,
     },
   },
-};
-
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
 };
 
 export default function ContactPage() {
@@ -119,7 +115,7 @@ export default function ContactPage() {
             transition={{ duration: 0.3 }}
             className="fixed top-6 right-6 z-50 rounded-lg bg-green-600 px-6 py-3 text-white shadow-xl"
           >
-            ✅ Message sent! We'll get back to you soon.
+            ✅ Message sent! We&apos;ll get back to you soon.
           </motion.div>
         )}
       </AnimatePresence>
@@ -151,8 +147,8 @@ export default function ContactPage() {
             variants={fadeInUp}
             custom={2}
           >
-            We'd love to hear from you. Please fill out the form below or use
-            our contact information.
+            We&apos;d love to hear from you. Please fill out the form below or
+            use our contact information.
           </motion.p>
         </motion.div>
 
@@ -218,31 +214,64 @@ export default function ContactPage() {
                 Send us a message
               </motion.h2>
               <form onSubmit={handleSubmit} className="space-y-4">
-                {["name", "email", "message"].map((field, index) => (
-                  <motion.div
-                    className="space-y-2"
-                    key={field}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.5 + index * 0.1 }}
-                  >
-                    <Label htmlFor={field}>
-                      {field.charAt(0).toUpperCase() + field.slice(1)}
-                    </Label>
-                    <Input
-                      id={field}
-                      name={field}
-                      value={formData[field as keyof typeof formData]}
-                      onChange={handleChange}
-                      className="border"
-                    />
-                    {errors[field as keyof typeof errors] && (
-                      <p className="text-sm text-red-500">
-                        {errors[field as keyof typeof errors]}
-                      </p>
-                    )}
-                  </motion.div>
-                ))}
+                <motion.div
+                  className="space-y-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.5 }}
+                >
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="border"
+                  />
+                  {errors.name && (
+                    <p className="text-sm text-red-500">{errors.name}</p>
+                  )}
+                </motion.div>
+
+                <motion.div
+                  className="space-y-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.6 }}
+                >
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="border"
+                  />
+                  {errors.email && (
+                    <p className="text-sm text-red-500">{errors.email}</p>
+                  )}
+                </motion.div>
+
+                <motion.div
+                  className="space-y-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.7 }}
+                >
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="border min-h-[120px]"
+                  />
+                  {errors.message && (
+                    <p className="text-sm text-red-500">{errors.message}</p>
+                  )}
+                </motion.div>
+
                 <motion.button
                   type="submit"
                   className="w-full flex items-center justify-center py-3 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700"

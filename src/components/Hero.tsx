@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 const Hero = () => {
   return (
@@ -17,10 +18,13 @@ const Hero = () => {
         transition={{ duration: 1, delay: 0.3 }}
         className="absolute top-0 left-1/2 transform -translate-x-1/2"
       >
-        <img
+        <Image
           src="/assets/img/hero/logo.svg"
           alt="Leul Construction PLC Logo"
+          width={256}
+          height={192}
           className="h-48 w-64 object-contain"
+          priority
         />
       </motion.div>
 
